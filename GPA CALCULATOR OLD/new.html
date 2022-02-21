@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+  <body>
+    
+    
+      <button onclick="create()">Add Subject</button>
+     
+     
+     <script>
+      function create() {
+        
+       // here marks variable is a reference to the newly created Element "input"
+        var marks = document.createElement('input');
+      
+        // assigning a class "subject" to the above created element 
+        marks.setAttribute('class', 'subjects');
+        
+
+        // placing the created element inside the body element 
+        
+        document.body.appendChild(marks);
+      }
+     </script>
+ 
+
+</body>
+</html>

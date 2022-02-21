@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<h4>Current Cumulative GPA</h4>
+Current GPA: <input type="text" id="cgpa" value="">
+    <br> <br>
+Current Credits Attempted: <input type="text" id="cearned" value="">
+<h4>Target GPA</h4>
+Desired GPA:<input type="text" id="dgpa" value="">
+    <br>  <br>
+Remaining Planned Credits:<input type="text" id="pcredits" value="">
+ <br> <br>
+<button onclick="myFunction()">Find your GPA</button>
+ <h2 id="demo"></h2>
+<script>
+function myFunction() {
+  var result=0;
+  var cgpa         =  parseFloat(document.getElementById("cgpa").value);
+  var cearned      =  parseInt(document.getElementById("cearned").value);
+  var dgpa         =  parseFloat(document.getElementById("dgpa").value);
+  var pcredits     =  parseInt(document.getElementById("pcredits").value);
+  if(validate(cgpa,cearned,dgpa,pcredits)==true)
+  {
+  var tcredits     =  cearned + pcredits;
+  result           = (((tcredits*dgpa)-(cearned*cgpa) ) /pcredits).toFixed(2);
+   if(val(result)==true)
+   document.getElementById("demo").innerHTML="When you plan to take "+pcredits+" credits,then you need to attain desired Gpa of : "+(result);
+	  else
+	 document.getElementById("demo").innerHTML="final GPA result should be between 0 and 4";	  
+  }
+	else
+		{
+			          text = "Input can't be empty,Current and Desired Gpa should be between 0 and 4";
+					  document.getElementById("demo").innerHTML = text;
+		}
+}
+function validate(cgpa,cearned,dgpa,pcredits) {	  
+	         	  if ((isNaN(cgpa) ||cgpa < 0 || cgpa > 4) ||
+					 (isNaN(cearned) ||cearned < 0 ) ||
+					 (isNaN(dgpa) ||dgpa < 0 || dgpa > 4 ) ||
+					 (isNaN(pcredits) ||pcredits < 0 ) )
+				       return false;
+				  else
+		               return true;
+}
+ function val(result) {	  
+	         	  if ((isNaN(result) ||result < 0 || result > 4) )
+				       return false;
+				  else
+		               return true;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<h4>Current Cumulative GPA</h4>
+Current GPA: <input type="text" id="cgpa" value="">
+    <br> <br>
+Current Credits Attempted: <input type="text" id="cearned" value="">
+<h4>Target GPA</h4>
+Desired GPA:<input type="text" id="dgpa" value="">
+    <br>  <br>
+Remaining Planned Credits:<input type="text" id="pcredits" value="">
+ <br> <br>
+<button onclick="myFunction()">Find your GPA</button>
+	<h2 id="demo"></h2><h2 id="a"></h2><h2 id="b"></h2><h2 id="c"></h2><h2 id="d"></h2>
+<script>
+function myFunction() {
+    var result=0;var text="";
+    var i=0;
+	var flag         =  true;
+    var count        =  0;
+	var colorarray=["cgpa","cearned","dgpa","pcredits"];
+    
+	//RESET TEXTBOXES BORDER COLOR TO BLACK AND ERROR MESSAGE TEXT TO EMPTY
+  	for (i = 0; i < colorarray.length; i++) {
+	 document.getElementById(colorarray[i]).style.borderColor='#000000';
+	 text="";document.getElementById("a").innerHTML ="";document.getElementById("b").innerHTML ="";document.getElementById("c").innerHTML ="";document.getElementById("d").innerHTML ="";
+	 document.getElementById("demo").innerHTML = text;
+	}
+	
+   //RETRIEVE ALL VALUES FROM TEXTBOXES TO INPUTARRAY 
+   var inputarray=[ parseFloat(document.getElementById("cgpa").value),parseInt(document.getElementById("cearned").value),parseFloat(document.getElementById("dgpa").value),parseInt(document.getElementById("pcredits").value)];
+   
+  
+  for(i=0;i<inputarray.length;i++)
+	  {
+		  if(!isNaN(inputarray[i]))
+			 {
+			   count++;
+			   //***********************************************************************************
+			         if((inputarray[0]<0||inputarray[0]>4) )
+			          {
+						if(i==0) {
+						flag=false;  
+				        document.getElementById(colorarray[0]).style.borderColor='#e52213';
+				        document.getElementById("a").innerHTML = "Current GPA value should be between 0 and 4";
+						}
+					  }
+				       if(inputarray[1]<0)
+					   { 
+				        if(i==1) {
+						 flag=false;  
+				         document.getElementById(colorarray[1]).style.borderColor='#e52213';
+				         document.getElementById("b").innerHTML = "Current Credits Attempted should be greater than zero";
+						}
+					   }
+				      if(inputarray[2]<0||inputarray[2]>4)
+					  {
+						if(i==2)
+						{
+						 flag=false;  
+					     document.getElementById(colorarray[2]).style.borderColor='#e52213';
+				         document.getElementById("c").innerHTML = "Desired GPA value should be between 0 and 4";
+						}
+			          }
+				 	  if(inputarray[3]<0)
+					   {
+						if(i==3)
+						{
+						 flag=false;  
+					     document.getElementById(colorarray[3]).style.borderColor='#e52213';
+				         document.getElementById("d").innerHTML = "Remaining Planned Credits should be greater than zero";
+						}
+					  }
+				 //****************************************************************************			
+		     }
+	        else
+		    {
+		     document.getElementById(colorarray[i]).style.borderColor='#e52213';
+		     document.getElementById("demo").innerHTML="Please fill all input fields"
+		   }
+ }
+//*********************************************************end of for loop ****************************
+	if(flag==true && inputarray.length==count)
+				     {
+                              var tcredits     =  inputarray[1] + inputarray[3];
+						      console.log(tcredits);
+                              result           = (((tcredits*inputarray[2])-(inputarray[1]*inputarray[0]) ) /inputarray[3]).toFixed(2);
+						      console.log(result);
+                              if(val(result)==true)
+                                   document.getElementById("demo").innerHTML="You need "+inputarray[3]+" credits with Gpa of : "+(result);
+	                          else
+	                               document.getElementById("demo").innerHTML="Desired GPA is not attainable with Planned credits";	  
+                    }
+	
+}//********************************************end of validation function*********************************
+ function val(result) {	  
+	         	  if ((isNaN(result) ||result < 0 || result > 4) )
+				       return false;
+				  else
+		               return true;
+}
+</script>
+</body>
+</html>

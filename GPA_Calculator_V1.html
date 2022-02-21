@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h4>Current Cumulative GPA</h4>
+Cumulative GPA: <input type="text" id="cgpa" value="">
+Credits earned: <input type="text" id="cearned" value="">
+<h4>Target GPA</h4>
+Target / Desired GPA:<input type="text" id="dgpa" value="">
+Remaining / Planned Credits:<input type="text" id="pcredits" value="">
+<button onclick="myFunction()">Find your GPA</button>
+ <h2 id="demo"></h2>
+<script>
+function myFunction() {
+  var result=0;
+  var cgpa         =  document.getElementById("cgpa").value;
+  var cearned      =  document.getElementById("cearned").value;
+  var dgpa         =  document.getElementById("dgpa").value;
+  var pcredits     =  document.getElementById("pcredits").value;
+  var tcredits     =  cearned+pcredits;
+  result           = ((tcredits*dgpa)-(cearned*cgpa) );
+  document.getElementById("demo").innerHTML="you need your remaining credits with Gpa of :"+(result/ (pcredits));	
+}
+</script>
+</body>
+</html>

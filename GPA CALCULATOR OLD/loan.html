@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+// This script is explained line by line in depth in the following video:
+// http://www.develop.com/view.php?tid=1389
+function computeLoan(){
+	var text;
+	var amount = document.getElementById('amount').value;
+	var subject2=document.getElementById('amount2').value;
+	var subject3=document.getElementById('amount3').value;
+	var subject4=document.getElementById('amount4').value;
+	
+	/**if ((isNaN(amount) || amount < 0 || x > 4) ||(isNaN(amount) || amount < 0 || x > 4)||(isNaN(amount) || amount < 0 || x > 4)||(isNaN(amount) || amount < 0 || x > 4))
+	{
+    text = "Grade Input should be between 0 & 4";
+	document.getElementById("display").innerHTML = text;
+    } else {
+	var amount = document.getElementById('amount').value;
+	var subject2=document.getElementById('amount2').value;
+	var subject3=document.getElementById('amount3').value;
+	var subject4=document.getElementById('amount4').value;
+	*/
+	var total = parseFloat(amount)+parseFloat(subject2)+parseFloat(subject3)+parseFloat(subject4);
+	document.getElementById('total').innerHTML = "your GPA is:"+parseFloat(total/4);
+    
+  //   }
+  
+	
+	
+}
+
+</script>
+</head>
+<body>
+<p>GPA Subject1: <input id="amount" type="number" min="0" max="4" ></p>
+<p>GPA Subject2: <input id="amount2" type="number" min="0" max="4"></p>
+<p>GPA Subject3: <input id="amount3" type="number" min="0" max="4"></p>
+<p>GPA Subject4: <input id="amount4" type="number" min="0" max="4" ></p>
+<h2 id="total"></h2>
+<h2 id="display"></h2>
+<button onclick="computeLoan()">Find your GPA</button>
+</body>
+</html>

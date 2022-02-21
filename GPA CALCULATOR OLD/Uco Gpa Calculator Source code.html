@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ </head>
+  <body>
+    
+    
+      <button onclick="create()">Add Subject</button>
+      <button  onclick="calculateGPA()">Find your GPA</button>
+      <h2 id="total"></h2>
+       <h2 id="demo"></h2>
+     <script>
+	  
+      function create() {
+		 
+		   var marks = document.createElement('input');
+            
+            marks.setAttribute('class', 'subjects');
+		   
+		    
+		    document.body.appendChild(marks);
+
+
+      }	 
+		 function calculateGPA() {
+		   var flag=true;
+		   var Gpa=0, inputarray,i;
+		   inputarray=document.querySelectorAll(".subjects");
+		
+			 for(i=0;i< inputarray.length;i++)
+			  {	
+			     inputarray[i].style.borderColor = "green";  
+				  text = "";
+				 document.getElementById("demo").innerHTML = text;
+				 document.getElementById('total').innerHTML = text;
+			 
+		      if(validate( inputarray[i].value)==true)
+			   {
+				  inputarray[i].style.borderColor = "green";  
+				  Gpa+=(parseFloat)( inputarray[i].value);	   
+			   }
+		      else
+			  {
+		      flag=false;
+			   inputarray[i].style.borderColor = "red";	  
+			  }
+			 }
+			 if(flag==true)
+	          document.getElementById('total').innerHTML = "your GPA is:"+parseFloat((Gpa/ inputarray.length).toFixed(2));
+			 else
+				 {
+					 text = "Input not valid in highlighted box";
+					  document.getElementById("demo").innerHTML = text;
+				 }
+				 
+	  } 
+		 
+		 function validate(input) {	  
+	         	  if (isNaN(input) ||input < 0 || input > 4|| (Math.round(input) != input)) 
+				       return false;
+				  else
+		               return true;
+            }
+	
+		 
+     </script>
+ 
+
+</body>
+</html>

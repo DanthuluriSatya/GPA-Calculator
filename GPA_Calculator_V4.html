@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<h4>Current Cumulative GPA</h4>
+Current GPA: <input type="text" id="cgpa" value="">
+    <br> <br>
+Current Credits Attempted: <input type="text" id="cearned" value="">
+<h4>Target GPA</h4>
+Desired GPA:<input type="text" id="dgpa" value="">
+    <br>  <br>
+Remaining Planned Credits:<input type="text" id="pcredits" value="">
+ <br> <br>
+<button onclick="myFunction()">Find your GPA</button>
+ <h2 id="demo"></h2>
+<script>
+function myFunction() {
+  var result=0;
+  document.getElementById('cgpa').style.borderColor='#000000';
+  document.getElementById('cearned').style.borderColor='#000000';
+  document.getElementById('dgpa').style.borderColor='#000000';
+  document.getElementById('pcredits').style.borderColor='#000000';
+
+  var cgpa         =  parseFloat(document.getElementById("cgpa").value);
+  var cearned      =  parseInt(document.getElementById("cearned").value);
+  var dgpa         =  parseFloat(document.getElementById("dgpa").value);
+  var pcredits     =  parseInt(document.getElementById("pcredits").value);
+	
+	
+if(emptyvalidation_cgpa(cgpa)==false)
+	{
+		document.getElementById('cgpa').style.borderColor='#e52213';
+		
+		document.getElementById("demo").innerHTML="Please fill all input fields";
+		return ;
+	}
+else if(emptyvalidation_cearned(cearned)==false)
+	{
+		document.getElementById('cearned').style.borderColor='#e52213';
+		
+		document.getElementById("demo").innerHTML="Please fill all input fields";
+		return ;
+	}
+else if(emptyvalidation_dgpa(dgpa)==false)
+	{
+		document.getElementById('dgpa').style.borderColor='#e52213';
+		
+		document.getElementById("demo").innerHTML="Please fill all input fields";
+		return ;
+	}
+else if(emptyvalidation_pcredits(pcredits)==false)
+	{
+		document.getElementById('pcredits').style.borderColor='#e52213';
+		
+		document.getElementById("demo").innerHTML="Please fill all input fields";
+		return ;
+	}
+	
+	
+else{
+  if(validate(cgpa,cearned,dgpa,pcredits)==true)
+  {
+  var tcredits     =  cearned + pcredits;
+  result           = (((tcredits*dgpa)-(cearned*cgpa) ) /pcredits).toFixed(2);
+        if(val(result)==true)
+           document.getElementById("demo").innerHTML="You need "+pcredits+" credits with Gpa of : "+(result);
+	    else
+	       document.getElementById("demo").innerHTML="Desired GPA is not attainable with Planned credits";	  
+  }
+	else
+		{
+			
+			           if (  (isNaN(cgpa) ||cgpa < 0 || cgpa > 4))
+			            {
+						document.getElementById('cgpa').style.borderColor='#e52213';
+			            text = "Current GPA should be between 0 and 4";
+					    document.getElementById("demo").innerHTML = text;
+						return ;
+						}
+			            else if (  isNaN(dgpa) ||dgpa < 0 || dgpa > 4 )
+						{
+							document.getElementById('dgpa').style.borderColor='#e52213';
+		
+		                    document.getElementById("demo").innerHTML="Desired Gpa should be between 0 and 4";
+		                    return ;
+								
+						}
+						else if(isNaN(cearned) ||cearned < 0 )	
+						{
+						 document.getElementById('cearned').style.borderColor='#e52213';
+		
+		                 document.getElementById("demo").innerHTML="cearned shouldn't be negative";
+		                 return ;
+						}
+			           else
+						   {
+							 document.getElementById('pcredits').style.borderColor='#e52213';
+		
+		                     document.getElementById("demo").innerHTML="Pcredits shouldn't be negative";
+		                     return ;  
+						   }
+		}
+}
+}
+
+	
+	
+function emptyvalidation_cgpa(cgpa) {	  
+	         	  if (   isNaN(cgpa) )
+				       return false;
+				  else
+		               return true;
+}
+function emptyvalidation_cearned(cearned) {	  
+	         	  if (   isNaN(cearned) )
+				       return false;
+				  else
+		               return true;
+}
+function emptyvalidation_dgpa(dgpa) {	  
+	         	  if (    isNaN(dgpa)  )
+				       return false;
+				  else
+		               return true;
+}
+function emptyvalidation_pcredits(pcredits) {	  
+	         	  if (isNaN(pcredits) )
+				       return false;
+				  else
+		               return true;
+}
+	
+	
+function validate(cgpa,cearned,dgpa,pcredits) {	  
+	         	  if ((isNaN(cgpa) ||cgpa < 0 || cgpa > 4) ||
+					 (isNaN(cearned) ||cearned < 0 ) ||
+					 (isNaN(dgpa) ||dgpa < 0 || dgpa > 4 ) ||
+					 (isNaN(pcredits) ||pcredits < 0 ) )
+				       return false;
+				  else
+		               return true;
+}
+ function val(result) {	  
+	         	  if ((isNaN(result) ||result < 0 || result > 4) )
+				       return false;
+				  else
+		               return true;
+}
+	
+</script>
+</body>
+</html>

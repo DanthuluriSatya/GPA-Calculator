@@ -1,0 +1,35 @@
+.right-col{
+	background-color:#002157;
+}
+
+.color-red{
+    color: #F00;
+	font-size: 20px;
+	}
+.color-white{
+        color: #ffffff;
+	font-size: 20px;
+}
+input { 
+    text-align: center;
+	background-color: #d2caca;
+}
+
+.errors{
+	margint-bottom: 1rem
+}
+
+#myBtn{
+	background: #ffffff;
+	color: #000000;
+}
+#demo{
+	margin-top: 1rem;
+}
+
+.img-left{
+	padding-right: 0px;
+}
+body{
+	 height: 100px;
+}

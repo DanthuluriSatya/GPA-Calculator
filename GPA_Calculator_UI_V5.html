@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">	
+
+<link rel="stylesheet" href="css/styles_new.css" type="text/css">
+<style>
+	button {
+  width:170px;
+  height:40px;
+  background-color: #ffffff;
+  color: black;
+  border-radius: 10px;
+	}
+</style>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body style="background-color:#e4dee0;" >
+<div class="container" id="resize">
+  
+ <div class="row">
+ 
+  <div class="col-md-12 col-lg-6 right-col offset-lg-3">
+	 <!-- <form onsubmit="return false">  -->
+  	  <br>
+      <div class="row" >
+		  <div class="col-12"><center><h3><p class="text-white">GPA Calculator</p></h3></center></div>
+	  </div>
+     
+    <br>
+	  
+	 <div class="row">
+		 <div class="col-12">
+			 <div id="fillinput"></div>
+		</div>
+	   </div>
+
+ 
+     <div class="row input_group">
+     <div class="col-6"><p class="text-white" title="Enter your Current Cummulative GPA" data-toggle="tooltip">Current GPA:</p></div>
+    	 <div class="col-6">
+			 <input type="text" title="Enter your Current Cummulative GPA" data-toggle="tooltip" placeholder="e.g., 3.27" id="cgpa" value="" oninput="validfn(this);">
+			<br> <p id="a"></p>
+		 </div>
+	 </div> 
+   
+    <div class="row input_group">
+		<div class="col-6"><p class="text-white" title="Enter number of Credit Hours you have attempted to score your Current Cummulative GPA" data-toggle="tooltip">Current Credits Attempted:</p></div>
+    	<div class="col-6">
+			<input type="number"  title="Enter number of Credit Hours you have attempted to score your Current Cummulative GPA" data-toggle="tooltip" placeholder="e.g., 90" id="cearned" value="" oninput="valid(this);">
+			<p id="b"></p>
+		</div>
+	</div>
+
+    
+    <div class="row input_group">
+		<div class="col-6"><p class="text-white" title="What is your future Desired GPA?" data-toggle="tooltip">Desired GPA:</p></div>
+    <div class="col-6"><input type="text" title="What is your future Desired GPA?" data-toggle="tooltip" placeholder=" e.g., 3.5" id="dgpa" value="" oninput="validfn(this);">
+		<p id="c"></p>
+	  </div>
+    </div>
+ 
+    <div class="row">
+    <div class="col-12"><center><button id="myBtn" title="" data-toggle="tooltip" class="btn btn-primary" type="submit" onclick="myFunction()">Calculate</button></center></div>
+    </div><br>
+    
+     <div class="row result">
+		 <div class="col-12">
+			<div id="demo"></div><br><br>
+		</div>
+	   </div>
+ 
+    	 	<div class="row disclaimer">
+				<div class="col-12">
+					<p>*This calculator assumes every course to be 3 credit hours.</p>
+				</div>
+	  		</div>
+    <!-- </form> -->
+	  
+
+	</div>
+	   
+ </div>
+
+</div>
+<script>
+
+	//var numbers = /^[0-9.]+$/;
+	  var numbers = /^[0-9]+\.?[0-9]*$/;
+	
+	var valid = function(e) {
+    var t = e.value;
+		if(t.match(numbers)){	
+               if(t.indexOf(".") >= 0)
+		        {
+                  e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf("."))) : t;
+		        }
+		       else
+			     e.value = t.substring(0, 3);
+			}
+		else
+		{
+		  e.value= t.replace(/[^\w\s]/gi, '');	
+			
+		}
+	}
+
+	var validfn = function(e) {
+	
+    var t = e.value;
+		if(t.match(numbers)){
+			 if(t.indexOf(".") >= 0)
+			    {
+				//if(t.indexOf(".")==0)
+				  //e.value = (t.indexOf(".") == 0) ?  ("0"+ t.substr(t.indexOf("."), 3)) : t;
+				if(t.indexOf(".")==1)
+				      e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+			    else
+				  e.value = (t.indexOf(".") >= 0) ? (t.substring(0, 1) + t.substr(t.indexOf("."), 3)) : t;
+			   }
+			   else{
+				 e.value = t.substring(0, 1);
+			       }
+		}
+		else
+		{
+		      e.value= t.substring(0, t.length - 1);
+		}
+}
+
+function myFunction() {
+    var result=0;
+	var text="";
+    var i=0;
+	var flag         =  true;
+    var count        =  0;
+	var colorarray=["cgpa","cearned","dgpa"];
+    
+	//RESET TEXTBOXES BORDER COLOR TO BLACK AND ERROR MESSAGE TEXT TO EMPTY
+  	for (i = 0; i < colorarray.length; i++) {
+		 document.getElementById(colorarray[i]).style.borderColor='#d2caca';
+		 text="";
+		 document.getElementById("a").innerHTML ="";
+		 document.getElementById("b").innerHTML ="";
+		 document.getElementById("c").innerHTML ="";
+		 document.getElementById("fillinput").innerHTML="";
+		 document.getElementById("demo").innerHTML = text;
+	}
+	
+   //RETRIEVE ALL VALUES FROM TEXTBOXES TO INPUTARRAY 
+   var inputarray=[ parseFloat(document.getElementById("cgpa").value),parseInt(document.getElementById("cearned").value),parseFloat(document.getElementById("dgpa").value)];
+   
+  
+  for(i=0;i<inputarray.length;i++)
+	  {
+		  if(!isNaN(inputarray[i]))
+			 {
+			   count++;
+			   //***********************************************************************************
+			         if((inputarray[0]<0||inputarray[0]>4) )
+			          {
+						if(i==0) {
+						flag=false;  
+				        document.getElementById(colorarray[0]).style.borderColor='#e52213';
+				        //document.getElementById("a").innerHTML = "Current GPA value should be between 0 and 4";
+						  document.getElementById("a").innerHTML = "<span class='color-red'>Input should be between 0 and 4</span>";
+						}
+					  }
+				       if(inputarray[1]<0)
+					   { 
+				        if(i==1) {
+						 flag=false;  
+				         document.getElementById(colorarray[1]).style.borderColor='#e52213';
+				         document.getElementById("b").innerHTML = "<span class='color-red'>Input should be greater than zero</span>";
+						}
+					   }
+				      if(inputarray[2]<0||inputarray[2]>4)
+					  {
+						if(i==2)
+						{
+						 flag=false;  
+					     document.getElementById(colorarray[2]).style.borderColor='#e52213';
+				         document.getElementById("c").innerHTML = "<span class='color-red'>Input should be between 0 and 4</span>";
+						}
+			          }
+				 //****************************************************************************			
+		     }
+	        else
+		    {
+		     document.getElementById(colorarray[i]).style.borderColor='#e52213';
+		     document.getElementById("fillinput").innerHTML="<span class='color-red'>Please fill all input fields</span>";
+		   }
+ }
+//*********************************************************end of for loop ****************************
+	if(flag==true && inputarray.length==count)
+				     {
+						 if(inputarray[0]<4 && inputarray[2]==4)
+							 {
+								document.getElementById("demo").innerHTML="<span class='color-red'>Desired GPA can't be achieved</span>";   
+							 }
+						 else if(inputarray[2]<=inputarray[0])
+							 {
+								document.getElementById("demo").innerHTML="<span class='color-white'>Maintain your current GPA in future courses</span>"
+							 }
+						 else{
+                              result           = (((inputarray[1]*(inputarray[2]-inputarray[0]) ) /(4-inputarray[2]) ) /3);
+									if(Math.round(result) != result)  
+                                    document.getElementById("demo").innerHTML="<span class='color-white'>Get A's in next "+(result+1).toFixed(0)+" "+" courses</span>";
+									else
+									document.getElementById("demo").innerHTML="<span class='color-white'>Get A's in next "+(result).toFixed(0)+" "+"courses</span> ";  
+						 }
+                    }
+	
+}//********************************************end of validation function*********************************
+ 
+</script>
+</body>
+</html>

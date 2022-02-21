@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>GPA Forcasting Calculator</title>
+<link rel="stylesheet" href="../css/bootstrap-4.1.3.min.css">
+<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12" id="heading">
+				<h2>GPA Forecasting Calculator</h2>
+			</div>
+			
+			<div class="col-sm-12 error">
+				<p class="error_text"></p>
+			</div>
+			
+			<form>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-12 input-container">
+							<label for="GPAHours"><span class="asterisk">*</span>Credit Hours Attempted</label>
+							<input type="number" min="0" class="form-control" id="GPAHours" aria-describedby="" placeholder="GPA Hours">
+						</div>
+						<div class="col-sm-12 input-container">
+							<label for="GPAHours"><span class="asterisk">*</span>Total Quality Points</label>
+							<input type="number" min="0" class="form-control" id="QualityPoints" aria-describedby="" placeholder="GPA Hours">
+						</div>
+					</div>
+				</div>
+					<div class="form-group">
+						<h5 id="total_points">Total Points</h5>
+						<div class="row">
+						<div class="col-sm-12 input-container">
+							<label>Grade A (4.0)</label>
+							<input type="number" min="0" class="form-control quality_hours" value="0" id="A" aria-describedby="" placeholder="Hours">
+						</div>
+						<div class="col-sm-12 input-container">
+							<label>Grade B (3.0)</label>
+							<input type="number" min="0" class="form-control quality_hours" value="0" id="B" aria-describedby="" placeholder="Hours">
+						</div>
+						<div class="col-sm-12 input-container">
+							<label>Grade C (2.0)</label>
+							<input type="number" min="0" class="form-control quality_hours" value="0" id="C" aria-describedby="" placeholder="Hours">
+						</div>
+						<div class="col-sm-12 input-container">
+							<label>Grade D (1.0)</label>
+							<input type="number" min="0" class="form-control quality_hours" value="0" id="D" aria-describedby="" placeholder="Hours">
+						</div>
+						<div class="col-sm-12 input-container">
+							<label>Grade F (0.0)</label>
+							<input type="number" min="0" class="form-control quality_hours" value="0" id="F" aria-describedby="" placeholder="Hours">
+						</div>
+	
+						<div class="col-sm-12 input-container text-center">
+							<div class="btn btn-primary" type="submit">Calculate</div>
+						</div>
+						</div>
+						<div class="col-sm-12 result text-center">
+						</div>
+					
+				</div>
+			</form>
+			
+		</div>
+	</div>
+<script src="../js/jquery-3.4.1.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+		
+		$(".form-control").on("keypress keyup blur",function (event) {    
+           $(this).val($(this).val().replace(/[^\d].+/, ""));
+            if ((event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+        });
+		
+		$(".btn").click(function(e){
+			e.preventDefault();
+			clean();
+				let attempted_hours = parseInt($("#GPAHours").val());
+				let quality_points = parseInt($("#QualityPoints").val());
+				let A, B, C, D, F = 0;
+			
+			if(!checkError()){
+				$(".quality_hours").each(function(){
+					let field_name = $(this).attr("id");
+					let val = $(this).val();
+					if(field_name == 'A'){
+						A = parseInt(val);	
+					}else if(field_name == 'B'){
+						B = parseInt(val);
+					}else if(field_name == 'C'){
+						C = parseInt(val);
+					}else if(field_name == 'D'){
+						D = parseInt(val);
+					}else if(field_name == 'F'){
+						F = parseInt(val);
+					}
+				});
+
+				let total_hours = A + B + C + D + F + attempted_hours; console.log(total_hours);
+				let total_points = ((A * 4) + (B * 3) + (C * 2) + (D * 1) + (F * 0)) + quality_points; console.log(total_points);
+				let forcasted_gpa = total_points / total_hours;
+				forcasted_gpa = forcasted_gpa.toFixed(2);
+
+				let result_html = "<h5>Forceasted GPA: "+ forcasted_gpa +"</h5>"
+				$(".result").append(result_html);
+			}
+		});
+	});
+	
+	function checkError(){
+		let error_message = "";
+		let attempted_hours = parseInt($("#GPAHours").val());
+		let quality_points = parseInt($("#QualityPoints").val());
+		
+		if(isNaN(attempted_hours) || isNaN(quality_points)){
+			$("#GPAHours").addClass("is-invalid");
+			//error_message += "Please input Current Attempted Hours<br>";
+			error_message += "Please Input Required Fields<br>";
+		}
+	/*	if(isNaN(quality_points)){
+			$("#QualityPoints").addClass("is-invalid");
+			error_message += "Please input Quality Points<br>";
+		}*/
+		
+		$(".quality_hours").each(function(){
+			let field_name = $(this).attr("id");
+			let val = $(this).val();
+			val = parseInt(val);
+			console.log(val);
+			if(isNaN(val) || val < 0 || !Number.isInteger(val)){
+				$(this).addClass("is-invalid");
+			//	let ele = $(this).siblings(".error_total_points");
+			//	ele.append("Invalid Input");
+			}
+		});
+		
+		
+		if(error_message){
+			console.log("Error Message: "+error_message);
+			$(".error_text").append(error_message);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	function clean(){
+		$(".error_text").empty();
+		$(".result").empty();
+		
+		$("input").each(function(){
+			$(this).removeClass("is-invalid");
+		})
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+body{
+	 height: 100px;
+}
+.container{
+	margin-top: 1rem;
+}
+resize {
+  border: 2px solid;
+  padding: 20px; 
+  width: 300px;
+  resize: horizontal;
+  overflow: auto;
+}
+input { 
+    text-align: center;
+	background-color: #d2caca;
+}
+
+
+.right-col{
+	background-color:#002157;
+}
+
+.color-red{
+    color: #F00;
+	font-size: 18px;
+	font-weight: bold;
+	}
+.color-white{
+        color: #ffffff;
+	font-size: 24px;
+}
+
+.errors{
+	margint-bottom: 1rem;
+}
+
+#myBtn{
+	background: #ffffff;
+	color: #000000;
+}
+
+.img-left{
+	padding-right: 0px;
+}
+
+#fillinput{
+	height: 3rem;
+	margin-top: -30px;
+}
+.input_group{
+	height: 100px;
+}
+
+.result{
+	height: 90px;
+}
+div.row {
+  text-align: center;
+}
+
+.disclaimer{
+	color: #fff;
+	text-align: center;
+}
+
